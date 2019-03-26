@@ -1,7 +1,5 @@
 package user_registration.domain;
 
-import user_registration.infrastructure.UserOrmRepository;
-
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
@@ -12,9 +10,9 @@ import java.util.Random;
 
 public class RegisterUser {
 
-    private final UserOrmRepository userRepository;
+    private final UserRepository userRepository;
 
-    public RegisterUser(UserOrmRepository userOrmRepository) {
+    public RegisterUser(UserRepository userOrmRepository) {
         userRepository = userOrmRepository;
     }
 
