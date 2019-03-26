@@ -1,7 +1,5 @@
 package user_registration.domain;
 
-import user_registration.infrastructure.JavaXEmailSender;
-
 import java.util.Random;
 
 public class RegisterUser {
@@ -9,9 +7,9 @@ public class RegisterUser {
     private final UserRepository userRepository;
     private final EmailSender emailSender;
 
-    public RegisterUser(UserRepository userOrmRepository) {
+    public RegisterUser(UserRepository userOrmRepository, EmailSender emailSender) {
         userRepository = userOrmRepository;
-        emailSender = new JavaXEmailSender();
+        this.emailSender = emailSender;
     }
 
     public User execute(String password, String email, String name) throws PasswordIsNotValidException, EmailIsAlreadyInUseException, InvalidEmailException {

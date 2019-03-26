@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import user_registration.domain.*;
 
-import javax.mail.*;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
@@ -16,7 +15,7 @@ public class UserRegistrationController {
     @PostMapping("/users")
     public ResponseEntity createUser(HttpServletRequest request) throws InvalidEmailException {
         try {
-            User user = new RegisterUser(orm).execute(
+            User user = new RegisterUser(orm, new JavaXEmailSender()).execute(
                     request.getParameter("password"),
                     request.getParameter("email"),
                     request.getParameter("name")
