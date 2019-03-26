@@ -22,7 +22,7 @@ public class JavaXEmailSender implements EmailSender {
             }
         });
         try {
-            Message message = prepareEmail(theEmail.getEmailAddress(), theEmail.getSubject(), theEmail.getBody(), session);
+            Message message = prepareEmail(theEmail, session);
             // If a proper SMTP server is configured, this line could be uncommented
             // Transport.send(message);
         } catch (MessagingException e) {
@@ -30,17 +30,18 @@ public class JavaXEmailSender implements EmailSender {
         }
     }
 
-    private Message prepareEmail(String email, String subject, String body, Session session) throws MessagingException {
+    private Message prepareEmail(Email theEmail, Session session) throws MessagingException {
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress("noreply@codium.team"));
-        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-        message.setSubject(subject);
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(theEmail.getEmailAddress()));
+        message.setSubject(theEmail.getSubject());
         MimeBodyPart mimeBodyPart = new MimeBodyPart();
-        mimeBodyPart.setContent(body, "text/html");
+        mimeBodyPart.setContent(theEmail.getBody(), "text/html");
         Multipart multipart = new MimeMultipart();
         multipart.addBodyPart(mimeBodyPart);
         message.setContent(multipart);
 
         return message;
     }
+
 }
