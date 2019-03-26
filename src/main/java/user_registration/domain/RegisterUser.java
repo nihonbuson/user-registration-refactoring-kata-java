@@ -8,10 +8,10 @@ public class RegisterUser {
     private final EmailSender emailSender;
     private final RandomIdGenerator randomIdGenerator;
 
-    public RegisterUser(UserRepository userOrmRepository, EmailSender emailSender) {
+    public RegisterUser(UserRepository userOrmRepository, EmailSender emailSender, RandomIdGenerator randomIdGenerator) {
         userRepository = userOrmRepository;
         this.emailSender = emailSender;
-        randomIdGenerator = new RandomIdGenerator();
+        this.randomIdGenerator = randomIdGenerator;
     }
 
     public User execute(String password, String email, String name) throws PasswordIsNotValidException, EmailIsAlreadyInUseException, InvalidEmailException {
