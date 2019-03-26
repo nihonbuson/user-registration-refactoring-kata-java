@@ -16,6 +16,12 @@ public class EmailSender {
                 return new PasswordAuthentication("smtpUsername", "smtpPassword");
             }
         });
+        Message message = prepareEmail(email, subject, body, session);
+        // If a proper SMTP server is configured, this line could be uncommented
+        // Transport.send(message);
+    }
+
+    private Message prepareEmail(String email, String subject, String body, Session session) throws MessagingException {
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress("noreply@codium.team"));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
@@ -25,7 +31,7 @@ public class EmailSender {
         Multipart multipart = new MimeMultipart();
         multipart.addBodyPart(mimeBodyPart);
         message.setContent(multipart);
-        // If a proper SMTP server is configured, this line could be uncommented
-        // Transport.send(message);
+
+        return message;
     }
 }
