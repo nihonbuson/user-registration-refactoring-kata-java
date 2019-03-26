@@ -10,7 +10,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.util.Properties;
 
-public class EmailSender {
+public class JavaXEmailSender {
     public void send(Email theEmail) throws InvalidEmailException {
         send(theEmail.getEmailAddress(), theEmail.getSubject(), theEmail.getBody());
     }
