@@ -14,9 +14,8 @@ import java.util.Properties;
 public class JavaXEmailSender implements EmailSender {
     @Override
     public void send(Email theEmail) throws EmailException {
-        Session session = getSession();
         try {
-            Message message = prepareEmail(theEmail, session);
+            Message message = prepareEmail(theEmail);
             // If a proper SMTP server is configured, this line could be uncommented
             // Transport.send(message);
         } catch (MessagingException e) {
@@ -34,7 +33,8 @@ public class JavaXEmailSender implements EmailSender {
         });
     }
 
-    private Message prepareEmail(Email theEmail, Session session) throws MessagingException {
+    private Message prepareEmail(Email theEmail) throws MessagingException {
+        Session session = getSession();
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress("noreply@codium.team"));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(theEmail.getEmailAddress()));
