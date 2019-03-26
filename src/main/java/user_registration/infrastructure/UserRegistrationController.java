@@ -24,7 +24,7 @@ public class UserRegistrationController {
             return ResponseEntity.ok(user);
         } catch (PasswordIsNotValidException e) {
             return new ResponseEntity("The password is not valid", HttpStatus.BAD_REQUEST);
-        } catch (EmailIsAlreadyInUseException e) {
+        } catch (EmailAddressIsAlreadyInUseException e) {
             return new ResponseEntity("The email is already in use", HttpStatus.BAD_REQUEST);
         }
     }

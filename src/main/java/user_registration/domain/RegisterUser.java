@@ -12,13 +12,13 @@ public class RegisterUser {
         this.randomIdGenerator = randomIdGenerator;
     }
 
-    public User execute(String password, String emailAddress, String name) throws PasswordIsNotValidException, EmailIsAlreadyInUseException, InvalidEmailException {
+    public User execute(String password, String emailAddress, String name) throws PasswordIsNotValidException, EmailAddressIsAlreadyInUseException, InvalidEmailException {
         if (password.length() <= 8 || !password.contains("_")) {
             throw new PasswordIsNotValidException();
         }
 
         if (userRepository.findByEmail(emailAddress) != null) {
-            throw new EmailIsAlreadyInUseException();
+            throw new EmailAddressIsAlreadyInUseException();
         }
 
         User user = new User(
