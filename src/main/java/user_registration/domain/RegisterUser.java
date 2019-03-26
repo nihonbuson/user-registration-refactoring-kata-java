@@ -33,12 +33,12 @@ public class RegisterUser {
         );
         userRepository.save(user);
 
-        sendConfirmationEmail(email);
+        sendConfirmationEmail(email, "Welcome to Codium");
 
         return user;
     }
 
-    private void sendConfirmationEmail(String email) throws MessagingException {
+    private void sendConfirmationEmail(String email, String subject) throws MessagingException {
         Properties prop = new Properties();
         Session session = Session.getInstance(prop, new Authenticator() {
             @Override
@@ -49,7 +49,7 @@ public class RegisterUser {
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress("noreply@codium.team"));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-        message.setSubject("Welcome to Codium");
+        message.setSubject(subject);
         String msg = "This is the confirmation email";
         MimeBodyPart mimeBodyPart = new MimeBodyPart();
         mimeBodyPart.setContent(msg, "text/html");
