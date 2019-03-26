@@ -1,4 +1,4 @@
-package user_registration;
+package user_registration.domain;
 
 public class User {
     private final int id;

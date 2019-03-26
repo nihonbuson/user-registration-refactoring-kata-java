@@ -1,9 +1,11 @@
-package user_registration;
+package user_registration.infrastructure;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import user_registration.domain.User;
+import user_registration.infrastructure.UserOrmRepository;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;

@@ -1,4 +1,4 @@
-package user_registration;
+package user_registration.infrastructure;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,6 +10,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
+import user_registration.domain.User;
 
 import java.io.IOException;
 

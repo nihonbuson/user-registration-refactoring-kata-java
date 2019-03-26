@@ -1,4 +1,4 @@
-package user_registration;
+package user_registration.infrastructure;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

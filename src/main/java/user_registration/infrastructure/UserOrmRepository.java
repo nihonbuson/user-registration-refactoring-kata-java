@@ -1,4 +1,6 @@
-package user_registration;
+package user_registration.infrastructure;
+
+import user_registration.domain.User;
 
 import java.util.HashMap;
 
