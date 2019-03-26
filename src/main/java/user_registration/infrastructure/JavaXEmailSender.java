@@ -1,6 +1,7 @@
 package user_registration.infrastructure;
 
 import user_registration.domain.Email;
+import user_registration.domain.EmailSender;
 import user_registration.domain.InvalidEmailException;
 
 import javax.mail.*;
@@ -10,7 +11,8 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.util.Properties;
 
-public class JavaXEmailSender {
+public class JavaXEmailSender implements EmailSender {
+    @Override
     public void send(Email theEmail) throws InvalidEmailException {
         send(theEmail.getEmailAddress(), theEmail.getSubject(), theEmail.getBody());
     }

@@ -7,7 +7,7 @@ import java.util.Random;
 public class RegisterUser {
 
     private final UserRepository userRepository;
-    private final JavaXEmailSender emailSender;
+    private final EmailSender emailSender;
 
     public RegisterUser(UserRepository userOrmRepository) {
         userRepository = userOrmRepository;
