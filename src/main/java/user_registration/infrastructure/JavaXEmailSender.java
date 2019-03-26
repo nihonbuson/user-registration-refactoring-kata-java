@@ -14,13 +14,7 @@ import java.util.Properties;
 public class JavaXEmailSender implements EmailSender {
     @Override
     public void send(Email theEmail) throws EmailException {
-        Properties prop = new Properties();
-        Session session = Session.getInstance(prop, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("smtpUsername", "smtpPassword");
-            }
-        });
+        Session session = getSession();
         try {
             Message message = prepareEmail(theEmail, session);
             // If a proper SMTP server is configured, this line could be uncommented
@@ -28,6 +22,16 @@ public class JavaXEmailSender implements EmailSender {
         } catch (MessagingException e) {
             throw new EmailException(e);
         }
+    }
+
+    private Session getSession() {
+        Properties prop = new Properties();
+        return Session.getInstance(prop, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("smtpUsername", "smtpPassword");
+            }
+        });
     }
 
     private Message prepareEmail(Email theEmail, Session session) throws MessagingException {
