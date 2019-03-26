@@ -17,7 +17,7 @@ public class JavaXEmailSender implements EmailSender {
         send(theEmail.getEmailAddress(), theEmail.getSubject(), theEmail.getBody());
     }
 
-    public void send(String email, String subject, String body) throws EmailException {
+    private void send(String email, String subject, String body) throws EmailException {
         Properties prop = new Properties();
         Session session = Session.getInstance(prop, new Authenticator() {
             @Override
