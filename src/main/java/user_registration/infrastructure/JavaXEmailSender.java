@@ -15,7 +15,7 @@ public class JavaXEmailSender implements EmailSender {
     @Override
     public void send(Email theEmail) throws EmailException {
         try {
-            Message message = prepareEmail(theEmail);
+            Message message = prepareMessage(theEmail);
             // If a proper SMTP server is configured, this line could be uncommented
             // Transport.send(message);
         } catch (MessagingException e) {
@@ -23,7 +23,7 @@ public class JavaXEmailSender implements EmailSender {
         }
     }
 
-    private Message prepareEmail(Email theEmail) throws MessagingException {
+    private Message prepareMessage(Email theEmail) throws MessagingException {
         Session session = getSession();
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress("noreply@codium.team"));
