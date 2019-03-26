@@ -23,9 +23,10 @@ public class RegisterUser {
             return new ResponseEntity("The email is already in use", HttpStatus.BAD_REQUEST);
         }
 
+        String name = request.getParameter("name");
         User user = new User(
                 new Random().nextInt(),
-                request.getParameter("name"),
+                name,
                 email,
                 password
         );
