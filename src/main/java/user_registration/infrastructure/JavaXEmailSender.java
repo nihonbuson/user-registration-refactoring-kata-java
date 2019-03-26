@@ -14,10 +14,6 @@ import java.util.Properties;
 public class JavaXEmailSender implements EmailSender {
     @Override
     public void send(Email theEmail) throws EmailException {
-        send(theEmail.getEmailAddress(), theEmail.getSubject(), theEmail.getBody());
-    }
-
-    private void send(String email, String subject, String body) throws EmailException {
         Properties prop = new Properties();
         Session session = Session.getInstance(prop, new Authenticator() {
             @Override
@@ -26,7 +22,7 @@ public class JavaXEmailSender implements EmailSender {
             }
         });
         try {
-            Message message = prepareEmail(email, subject, body, session);
+            Message message = prepareEmail(theEmail.getEmailAddress(), theEmail.getSubject(), theEmail.getBody(), session);
             // If a proper SMTP server is configured, this line could be uncommented
             // Transport.send(message);
         } catch (MessagingException e) {
