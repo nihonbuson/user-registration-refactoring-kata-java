@@ -14,12 +14,11 @@ import java.util.Properties;
 import java.util.Random;
 
 public class RegisterUser {
-    public ResponseEntity execute(HttpServletRequest request, String password) throws MessagingException {
+    public ResponseEntity execute(HttpServletRequest request, String password, String email) throws MessagingException {
         if (password.length() <= 8 || !password.contains("_")) {
             return new ResponseEntity("The password is not valid", HttpStatus.BAD_REQUEST);
         }
 
-        String email = request.getParameter("email");
         if (UserRegistrationController.orm.findByEmail(email) != null) {
             return new ResponseEntity("The email is already in use", HttpStatus.BAD_REQUEST);
         }
