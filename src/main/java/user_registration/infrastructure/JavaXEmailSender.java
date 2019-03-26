@@ -23,16 +23,6 @@ public class JavaXEmailSender implements EmailSender {
         }
     }
 
-    private Session getSession() {
-        Properties prop = new Properties();
-        return Session.getInstance(prop, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("smtpUsername", "smtpPassword");
-            }
-        });
-    }
-
     private Message prepareEmail(Email theEmail) throws MessagingException {
         Session session = getSession();
         Message message = new MimeMessage(session);
@@ -46,6 +36,16 @@ public class JavaXEmailSender implements EmailSender {
         message.setContent(multipart);
 
         return message;
+    }
+
+    private Session getSession() {
+        Properties prop = new Properties();
+        return Session.getInstance(prop, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("smtpUsername", "smtpPassword");
+            }
+        });
     }
 
 }
