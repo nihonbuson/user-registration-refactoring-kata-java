@@ -1,5 +1,6 @@
 package user_registration.domain;
 
+import user_registration.infrastructure.UserOrmRepository;
 import user_registration.infrastructure.UserRegistrationController;
 
 import javax.mail.*;
@@ -11,12 +12,19 @@ import java.util.Properties;
 import java.util.Random;
 
 public class RegisterUser {
+
+    private final UserOrmRepository userRepository;
+
+    public RegisterUser() {
+        userRepository = UserRegistrationController.orm;
+    }
+
     public User execute(String password, String email, String name) throws MessagingException, PasswordIsNotValidException, EmailIsAlreadyInUseException {
         if (password.length() <= 8 || !password.contains("_")) {
             throw new PasswordIsNotValidException();
         }
 
-        if (UserRegistrationController.orm.findByEmail(email) != null) {
+        if (userRepository.findByEmail(email) != null) {
             throw new EmailIsAlreadyInUseException();
         }
 
@@ -26,7 +34,7 @@ public class RegisterUser {
                 email,
                 password
         );
-        UserRegistrationController.orm.save(user);
+        userRepository.save(user);
 
         Properties prop = new Properties();
         Session session = Session.getInstance(prop, new Authenticator() {
