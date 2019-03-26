@@ -1,7 +1,5 @@
 package user_registration.domain;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import user_registration.infrastructure.UserRegistrationController;
 
 import javax.mail.*;
@@ -13,7 +11,7 @@ import java.util.Properties;
 import java.util.Random;
 
 public class RegisterUser {
-    public ResponseEntity execute(String password, String email, String name) throws MessagingException, PasswordIsNotValidException, EmailIsAlreadyInUseException {
+    public User execute(String password, String email, String name) throws MessagingException, PasswordIsNotValidException, EmailIsAlreadyInUseException {
         if (password.length() <= 8 || !password.contains("_")) {
             throw new PasswordIsNotValidException();
         }
@@ -50,6 +48,6 @@ public class RegisterUser {
         // If a proper SMTP server is configured, this line could be uncommented
         // Transport.send(message);
 
-        return ResponseEntity.ok(user);
+        return user;
     }
 }
