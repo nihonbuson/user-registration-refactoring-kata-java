@@ -13,9 +13,9 @@ import java.util.Properties;
 import java.util.Random;
 
 public class RegisterUser {
-    public ResponseEntity execute(String password, String email, String name) throws MessagingException {
+    public ResponseEntity execute(String password, String email, String name) throws MessagingException, PasswordIsNotValidException {
         if (password.length() <= 8 || !password.contains("_")) {
-            return new ResponseEntity("The password is not valid", HttpStatus.BAD_REQUEST);
+            throw new PasswordIsNotValidException();
         }
 
         if (UserRegistrationController.orm.findByEmail(email) != null) {
