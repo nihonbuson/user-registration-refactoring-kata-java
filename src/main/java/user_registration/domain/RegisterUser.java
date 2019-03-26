@@ -19,14 +19,15 @@ public class RegisterUser {
             return new ResponseEntity("The password is not valid", HttpStatus.BAD_REQUEST);
         }
 
-        if (UserRegistrationController.orm.findByEmail(request.getParameter("email")) != null) {
+        String email = request.getParameter("email");
+        if (UserRegistrationController.orm.findByEmail(email) != null) {
             return new ResponseEntity("The email is already in use", HttpStatus.BAD_REQUEST);
         }
 
         User user = new User(
                 new Random().nextInt(),
                 request.getParameter("name"),
-                request.getParameter("email"),
+                email,
                 password
         );
         UserRegistrationController.orm.save(user);
@@ -40,7 +41,7 @@ public class RegisterUser {
         });
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress("noreply@codium.team"));
-        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(request.getParameter("email")));
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
         message.setSubject("Welcome to Codium");
         String msg = "This is the confirmation email";
         MimeBodyPart mimeBodyPart = new MimeBodyPart();
