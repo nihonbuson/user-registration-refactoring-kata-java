@@ -1,14 +1,14 @@
 package user_registration.domain;
 
-import user_registration.infrastructure.RandomIdGenerator;
+import user_registration.infrastructure.JavaUtilRandomIdGenerator;
 
 public class RegisterUser {
 
     private final UserRepository userRepository;
     private final EmailSender emailSender;
-    private final RandomIdGenerator randomIdGenerator;
+    private final JavaUtilRandomIdGenerator randomIdGenerator;
 
-    public RegisterUser(UserRepository userOrmRepository, EmailSender emailSender, RandomIdGenerator randomIdGenerator) {
+    public RegisterUser(UserRepository userOrmRepository, EmailSender emailSender, JavaUtilRandomIdGenerator randomIdGenerator) {
         userRepository = userOrmRepository;
         this.emailSender = emailSender;
         this.randomIdGenerator = randomIdGenerator;

@@ -15,7 +15,7 @@ public class UserRegistrationController {
     @PostMapping("/users")
     public ResponseEntity createUser(HttpServletRequest request) throws InvalidEmailException {
         try {
-            User user = new RegisterUser(orm, new JavaXEmailSender(), new RandomIdGenerator()).execute(
+            User user = new RegisterUser(orm, new JavaXEmailSender(), new JavaUtilRandomIdGenerator()).execute(
                     request.getParameter("password"),
                     request.getParameter("email"),
                     request.getParameter("name")
