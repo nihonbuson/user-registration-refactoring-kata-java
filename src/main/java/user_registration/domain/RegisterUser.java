@@ -1,15 +1,17 @@
 package user_registration.domain;
 
-import java.util.Random;
+import user_registration.infrastructure.RandomIdGenerator;
 
 public class RegisterUser {
 
     private final UserRepository userRepository;
     private final EmailSender emailSender;
+    private final RandomIdGenerator randomIdGenerator;
 
     public RegisterUser(UserRepository userOrmRepository, EmailSender emailSender) {
         userRepository = userOrmRepository;
         this.emailSender = emailSender;
+        randomIdGenerator = new RandomIdGenerator();
     }
 
     public User execute(String password, String email, String name) throws PasswordIsNotValidException, EmailIsAlreadyInUseException, InvalidEmailException {
@@ -22,7 +24,7 @@ public class RegisterUser {
         }
 
         User user = new User(
-                new Random().nextInt(),
+                randomIdGenerator.generateId(),
                 name,
                 email,
                 password
