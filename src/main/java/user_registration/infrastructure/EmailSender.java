@@ -20,9 +20,8 @@ public class EmailSender {
         message.setFrom(new InternetAddress("noreply@codium.team"));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
         message.setSubject(subject);
-        String msg = body;
         MimeBodyPart mimeBodyPart = new MimeBodyPart();
-        mimeBodyPart.setContent(msg, "text/html");
+        mimeBodyPart.setContent(body, "text/html");
         Multipart multipart = new MimeMultipart();
         multipart.addBodyPart(mimeBodyPart);
         message.setContent(multipart);
