@@ -14,8 +14,7 @@ import java.util.Properties;
 import java.util.Random;
 
 public class RegisterUser {
-    public ResponseEntity execute(HttpServletRequest request) throws MessagingException {
-        String password = request.getParameter("password");
+    public ResponseEntity execute(HttpServletRequest request, String password) throws MessagingException {
         if (password.length() <= 8 || !password.contains("_")) {
             return new ResponseEntity("The password is not valid", HttpStatus.BAD_REQUEST);
         }

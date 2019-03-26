@@ -14,7 +14,7 @@ public class UserRegistrationController {
 
     @PostMapping("/users")
     public ResponseEntity createUser(HttpServletRequest request) throws MessagingException {
-        return new RegisterUser().execute(request);
+        return new RegisterUser().execute(request, request.getParameter("password"));
     }
 
 }
