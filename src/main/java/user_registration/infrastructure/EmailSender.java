@@ -1,5 +1,6 @@
 package user_registration.infrastructure;
 
+import user_registration.domain.Email;
 import user_registration.domain.InvalidEmailException;
 
 import javax.mail.*;
@@ -10,6 +11,10 @@ import javax.mail.internet.MimeMultipart;
 import java.util.Properties;
 
 public class EmailSender {
+    public void send(Email theEmail) throws InvalidEmailException {
+        send(theEmail.getEmailAddress(), theEmail.getSubject(), theEmail.getBody());
+    }
+
     public void send(String email, String subject, String body) throws InvalidEmailException {
         Properties prop = new Properties();
         Session session = Session.getInstance(prop, new Authenticator() {

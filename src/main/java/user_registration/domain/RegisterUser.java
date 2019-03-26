@@ -31,7 +31,8 @@ public class RegisterUser {
         );
         userRepository.save(user);
 
-        emailSender.send(email, "Welcome to Codium", "This is the confirmation email");
+        Email confirmationEmail = new Email(email, "Welcome to Codium", "This is the confirmation email");
+        emailSender.send(confirmationEmail);
 
         return user;
     }
