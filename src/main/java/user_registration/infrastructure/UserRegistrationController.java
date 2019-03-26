@@ -19,7 +19,7 @@ public class UserRegistrationController {
     @PostMapping("/users")
     public ResponseEntity createUser(HttpServletRequest request) throws MessagingException {
         try {
-            User user = new RegisterUser().execute(
+            User user = new RegisterUser(orm).execute(
                     request.getParameter("password"),
                     request.getParameter("email"),
                     request.getParameter("name")

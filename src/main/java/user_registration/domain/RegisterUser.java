@@ -1,7 +1,6 @@
 package user_registration.domain;
 
 import user_registration.infrastructure.UserOrmRepository;
-import user_registration.infrastructure.UserRegistrationController;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -15,8 +14,8 @@ public class RegisterUser {
 
     private final UserOrmRepository userRepository;
 
-    public RegisterUser() {
-        userRepository = UserRegistrationController.orm;
+    public RegisterUser(UserOrmRepository userOrmRepository) {
+        userRepository = userOrmRepository;
     }
 
     public User execute(String password, String email, String name) throws MessagingException, PasswordIsNotValidException, EmailIsAlreadyInUseException {
