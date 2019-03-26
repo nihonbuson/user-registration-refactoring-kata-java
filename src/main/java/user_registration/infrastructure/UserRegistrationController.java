@@ -17,7 +17,8 @@ public class UserRegistrationController {
         return new RegisterUser().execute(
                 request,
                 request.getParameter("password"),
-                request.getParameter("email")
+                request.getParameter("email"),
+                request.getParameter("name")
         );
     }
 

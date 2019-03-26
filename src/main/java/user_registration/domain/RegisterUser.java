@@ -14,7 +14,7 @@ import java.util.Properties;
 import java.util.Random;
 
 public class RegisterUser {
-    public ResponseEntity execute(HttpServletRequest request, String password, String email) throws MessagingException {
+    public ResponseEntity execute(HttpServletRequest request, String password, String email, String name) throws MessagingException {
         if (password.length() <= 8 || !password.contains("_")) {
             return new ResponseEntity("The password is not valid", HttpStatus.BAD_REQUEST);
         }
@@ -23,7 +23,6 @@ public class RegisterUser {
             return new ResponseEntity("The email is already in use", HttpStatus.BAD_REQUEST);
         }
 
-        String name = request.getParameter("name");
         User user = new User(
                 new Random().nextInt(),
                 name,
