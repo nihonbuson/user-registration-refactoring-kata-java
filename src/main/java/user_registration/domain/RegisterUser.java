@@ -9,12 +9,11 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import javax.servlet.http.HttpServletRequest;
 import java.util.Properties;
 import java.util.Random;
 
 public class RegisterUser {
-    public ResponseEntity execute(HttpServletRequest request, String password, String email, String name) throws MessagingException {
+    public ResponseEntity execute(String password, String email, String name) throws MessagingException {
         if (password.length() <= 8 || !password.contains("_")) {
             return new ResponseEntity("The password is not valid", HttpStatus.BAD_REQUEST);
         }
