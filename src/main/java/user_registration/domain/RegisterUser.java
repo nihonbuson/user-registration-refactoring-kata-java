@@ -12,7 +12,7 @@ public class RegisterUser {
         this.randomIdGenerator = randomIdGenerator;
     }
 
-    public User execute(String password, String emailAddress, String name) throws PasswordIsNotValidException, EmailAddressIsAlreadyInUseException, InvalidEmailException {
+    public User execute(String password, String emailAddress, String name) throws PasswordIsNotValidException, EmailAddressIsAlreadyInUseException, EmailException {
         if (password.length() <= 8 || !password.contains("_")) {
             throw new PasswordIsNotValidException();
         }

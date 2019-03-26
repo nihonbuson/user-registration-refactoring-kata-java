@@ -2,7 +2,7 @@ package user_registration.infrastructure;
 
 import user_registration.domain.Email;
 import user_registration.domain.EmailSender;
-import user_registration.domain.InvalidEmailException;
+import user_registration.domain.EmailException;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -13,11 +13,11 @@ import java.util.Properties;
 
 public class JavaXEmailSender implements EmailSender {
     @Override
-    public void send(Email theEmail) throws InvalidEmailException {
+    public void send(Email theEmail) throws EmailException {
         send(theEmail.getEmailAddress(), theEmail.getSubject(), theEmail.getBody());
     }
 
-    public void send(String email, String subject, String body) throws InvalidEmailException {
+    public void send(String email, String subject, String body) throws EmailException {
         Properties prop = new Properties();
         Session session = Session.getInstance(prop, new Authenticator() {
             @Override
@@ -27,11 +27,11 @@ public class JavaXEmailSender implements EmailSender {
         });
         try {
             Message message = prepareEmail(email, subject, body, session);
+            // If a proper SMTP server is configured, this line could be uncommented
+            // Transport.send(message);
         } catch (MessagingException e) {
-            throw new InvalidEmailException(e);
+            throw new EmailException(e);
         }
-        // If a proper SMTP server is configured, this line could be uncommented
-        // Transport.send(message);
     }
 
     private Message prepareEmail(String email, String subject, String body, Session session) throws MessagingException {

@@ -13,7 +13,7 @@ public class UserRegistrationController {
     public static UserRepository orm = new UserOrmRepository();
 
     @PostMapping("/users")
-    public ResponseEntity createUser(HttpServletRequest request) throws InvalidEmailException {
+    public ResponseEntity createUser(HttpServletRequest request) throws EmailException {
         try {
             RegisterUser registerUser = new RegisterUser(orm, new JavaXEmailSender(), new JavaUtilRandomIdGenerator());
             User user = registerUser.execute(
