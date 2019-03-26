@@ -1,19 +1,18 @@
 package user_registration.domain;
 
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-import java.util.Properties;
+import user_registration.infrastructure.EmailSender;
+
+import javax.mail.MessagingException;
 import java.util.Random;
 
 public class RegisterUser {
 
     private final UserRepository userRepository;
+    private final EmailSender emailSender;
 
     public RegisterUser(UserRepository userOrmRepository) {
         userRepository = userOrmRepository;
+        emailSender = new EmailSender();
     }
 
     public User execute(String password, String email, String name) throws MessagingException, PasswordIsNotValidException, EmailIsAlreadyInUseException {
@@ -33,30 +32,9 @@ public class RegisterUser {
         );
         userRepository.save(user);
 
-        sendConfirmationEmail(email, "Welcome to Codium", "This is the confirmation email");
+        emailSender.send(email, "Welcome to Codium", "This is the confirmation email");
 
         return user;
     }
 
-    private void sendConfirmationEmail(String email, String subject, String body) throws MessagingException {
-        Properties prop = new Properties();
-        Session session = Session.getInstance(prop, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("smtpUsername", "smtpPassword");
-            }
-        });
-        Message message = new MimeMessage(session);
-        message.setFrom(new InternetAddress("noreply@codium.team"));
-        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-        message.setSubject(subject);
-        String msg = body;
-        MimeBodyPart mimeBodyPart = new MimeBodyPart();
-        mimeBodyPart.setContent(msg, "text/html");
-        Multipart multipart = new MimeMultipart();
-        multipart.addBodyPart(mimeBodyPart);
-        message.setContent(multipart);
-        // If a proper SMTP server is configured, this line could be uncommented
-        // Transport.send(message);
-    }
 }
