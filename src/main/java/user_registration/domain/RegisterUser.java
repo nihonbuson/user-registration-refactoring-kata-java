@@ -12,24 +12,24 @@ public class RegisterUser {
         this.randomIdGenerator = randomIdGenerator;
     }
 
-    public User execute(String password, String email, String name) throws PasswordIsNotValidException, EmailIsAlreadyInUseException, InvalidEmailException {
+    public User execute(String password, String emailAddress, String name) throws PasswordIsNotValidException, EmailIsAlreadyInUseException, InvalidEmailException {
         if (password.length() <= 8 || !password.contains("_")) {
             throw new PasswordIsNotValidException();
         }
 
-        if (userRepository.findByEmail(email) != null) {
+        if (userRepository.findByEmail(emailAddress) != null) {
             throw new EmailIsAlreadyInUseException();
         }
 
         User user = new User(
                 randomIdGenerator.generateId(),
                 name,
-                email,
+                emailAddress,
                 password
         );
         userRepository.save(user);
 
-        Email confirmationEmail = new Email(email, "Welcome to Codium", "This is the confirmation email");
+        Email confirmationEmail = new Email(emailAddress, "Welcome to Codium", "This is the confirmation email");
         emailSender.send(confirmationEmail);
 
         return user;
