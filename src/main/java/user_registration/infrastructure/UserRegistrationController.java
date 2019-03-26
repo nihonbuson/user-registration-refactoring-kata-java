@@ -14,7 +14,7 @@ public class UserRegistrationController {
     public static UserRepository orm = new UserOrmRepository();
 
     @PostMapping("/users")
-    public ResponseEntity createUser(HttpServletRequest request) throws MessagingException {
+    public ResponseEntity createUser(HttpServletRequest request) throws InvalidEmailException {
         try {
             User user = new RegisterUser(orm).execute(
                     request.getParameter("password"),

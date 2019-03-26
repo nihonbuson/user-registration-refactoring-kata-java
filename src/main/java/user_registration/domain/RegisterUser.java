@@ -2,7 +2,6 @@ package user_registration.domain;
 
 import user_registration.infrastructure.EmailSender;
 
-import javax.mail.MessagingException;
 import java.util.Random;
 
 public class RegisterUser {
@@ -15,7 +14,7 @@ public class RegisterUser {
         emailSender = new EmailSender();
     }
 
-    public User execute(String password, String email, String name) throws MessagingException, PasswordIsNotValidException, EmailIsAlreadyInUseException {
+    public User execute(String password, String email, String name) throws PasswordIsNotValidException, EmailIsAlreadyInUseException, InvalidEmailException {
         if (password.length() <= 8 || !password.contains("_")) {
             throw new PasswordIsNotValidException();
         }

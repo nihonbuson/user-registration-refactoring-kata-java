@@ -1,5 +1,7 @@
 package user_registration.infrastructure;
 
+import user_registration.domain.InvalidEmailException;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
@@ -8,7 +10,7 @@ import javax.mail.internet.MimeMultipart;
 import java.util.Properties;
 
 public class EmailSender {
-    public void send(String email, String subject, String body) throws MessagingException {
+    public void send(String email, String subject, String body) throws InvalidEmailException {
         Properties prop = new Properties();
         Session session = Session.getInstance(prop, new Authenticator() {
             @Override
@@ -16,7 +18,11 @@ public class EmailSender {
                 return new PasswordAuthentication("smtpUsername", "smtpPassword");
             }
         });
-        Message message = prepareEmail(email, subject, body, session);
+        try {
+            Message message = prepareEmail(email, subject, body, session);
+        } catch (MessagingException e) {
+            throw new InvalidEmailException(e);
+        }
         // If a proper SMTP server is configured, this line could be uncommented
         // Transport.send(message);
     }
