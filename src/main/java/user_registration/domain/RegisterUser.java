@@ -33,6 +33,12 @@ public class RegisterUser {
         );
         userRepository.save(user);
 
+        sendConfirmationEmail(email);
+
+        return user;
+    }
+
+    private void sendConfirmationEmail(String email) throws MessagingException {
         Properties prop = new Properties();
         Session session = Session.getInstance(prop, new Authenticator() {
             @Override
@@ -52,7 +58,5 @@ public class RegisterUser {
         message.setContent(multipart);
         // If a proper SMTP server is configured, this line could be uncommented
         // Transport.send(message);
-
-        return user;
     }
 }
