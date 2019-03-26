@@ -1,4 +1,6 @@
-package user_registration.domain;
+package user_registration.application;
+
+import user_registration.domain.*;
 
 public class RegisterUser {
 
